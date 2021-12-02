@@ -10,15 +10,25 @@ import (
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
-	prev := 0
+	var prev [3]int
 	increases := 0
 	idx := 0
 	for scanner.Scan() {
 		val, _ := strconv.Atoi(scanner.Text())
-		if idx > 0 && val > prev {
+		// load up first window
+		if idx < 3 {
+			prev[idx] = val
+			idx++
+			continue
+		}
+
+		if prev[0]+prev[1]+prev[2] < prev[1]+prev[2]+val {
 			increases++
 		}
-		prev = val
+
+		prev[0] = prev[1]
+		prev[1] = prev[2]
+		prev[2] = val
 		idx++
 	}
 
