@@ -13,6 +13,7 @@ func main() {
 
 	horizontalPosition := 0
 	depth := 0
+	aim := 0
 	for scanner.Scan() {
 		tokens := strings.Split(scanner.Text(), " ")
 		direction := tokens[0]
@@ -21,10 +22,11 @@ func main() {
 		switch direction {
 		case "forward":
 			horizontalPosition += amount
+			depth += aim * amount
 		case "down":
-			depth += amount
+			aim += amount
 		case "up":
-			depth -= amount
+			aim -= amount
 		}
 	}
 
